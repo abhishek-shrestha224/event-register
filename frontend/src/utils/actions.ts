@@ -76,7 +76,7 @@ export async function registerToEvent(
             return {
                 data: null,
                 at: null,
-                message: "User not found in session. Plese login",
+                message: "User not found in session. Please login",
             };
         }
 
@@ -101,7 +101,13 @@ export async function registerToEvent(
         console.log(res);
 
         if (!res.ok) {
-            console.log("error");
+            const errorText = await res.text();
+            console.log("error", errorText);
+
+            if (res.status === 413) {
+                return { data: null, at: "photo", message: "File too large" };
+            }
+
             throw new Error("Error on server");
         }
 
@@ -109,6 +115,9 @@ export async function registerToEvent(
         return { data: data.id, at: null, message: null };
     } catch (err) {
         if (err instanceof Error) {
+            if (err.message.includes("Body exceeded 1 MB limit")) {
+                return { data: null, at: "photo", message: "File too large" };
+            }
             return { data: null, at: null, message: err.message };
         } else {
             return { data: null, at: null, message: "No idea" };

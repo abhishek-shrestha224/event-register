@@ -33,22 +33,12 @@ export function validateRegisterForm(formData: {
         };
     }
 
-    const fileNamePattern = /^[a-zA-Z0-9_]+$/;
     const filePath = photoFile.name;
     const fileName = filePath.split(".").shift();
     const extension = filePath.split(".").pop();
     console.log(filePath);
     console.log(fileName);
     console.log(extension);
-
-    if (!fileNamePattern.test(fileName)) {
-        console.log("invalid filename");
-        return {
-            pass: false,
-            at: "photo",
-            message: "Invalid Filename",
-        };
-    }
 
     const maxFileSize = 2 * 1024 * 1024;
     if (photoFile.size > maxFileSize) {

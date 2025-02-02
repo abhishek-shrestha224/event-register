@@ -42,6 +42,19 @@ const EventRegistrationForm = ({ eventId }: { eventId: string }) => {
         setIsLoading(true);
 
         console.log(formData.photo);
+        const photoFile = Array.isArray(formData.photo)
+            ? formData.photo[0]
+            : formData.photo;
+
+        if (formData.photo && photoFile.size > 2 * 1024 * 1024) {
+            console.log("File too big");
+            setError("photo", {
+                type: "manual",
+                message: "File too large. Max size is 2MB.",
+            });
+            setIsLoading(false);
+            return; // Stop function execution
+        }
         const email: string = localStorage.getItem("email") as string;
 
         const { data, at, message } = await registerToEvent(
@@ -56,6 +69,8 @@ const EventRegistrationForm = ({ eventId }: { eventId: string }) => {
                 type: "manual",
                 message: message ?? "Invalid registration type",
             });
+            setIsLoading(false);
+            return;
         }
 
         if (at === "photo") {
@@ -63,10 +78,14 @@ const EventRegistrationForm = ({ eventId }: { eventId: string }) => {
                 type: "manual",
                 message: message ?? "Invalid file",
             });
+            setIsLoading(false);
+            return;
         }
 
         if (!at && message) {
             setErrorMessage(message);
+            setIsLoading(false);
+            return;
         }
 
         if (!at) {
@@ -81,7 +100,7 @@ const EventRegistrationForm = ({ eventId }: { eventId: string }) => {
     return (
         <div>
             <h3 className="lg:text-3xl font-bold">Registration Form</h3>
-            <div className="mt-4 h-4 text-sm font-bold text-accent flex justify-start items-center gap-4">
+            <div className="lg:mt-4 h-4 text-sm font-bold text-accent flex justify-start items-center gap-4">
                 {errorMessage && (
                     <>
                         <p className="text-red-800 font-medium text-lg">
@@ -101,9 +120,9 @@ const EventRegistrationForm = ({ eventId }: { eventId: string }) => {
             </div>
             <form
                 onSubmit={handleSubmit(onSubmit)}
-                className="auto center-content flex-col"
+                className="center-content flex-col"
             >
-                <div className="w-full mt-8">
+                <div className="w-full lg:mt-8">
                     <label
                         htmlFor="registrationType"
                         className="block mb-2 text-sm font-medium text-dark"
@@ -114,7 +133,7 @@ const EventRegistrationForm = ({ eventId }: { eventId: string }) => {
                         id="registrationType"
                         {...register("registrationType")}
                         defaultValue="ATTENDEE"
-                        className="shadow-xs bg-light border border-accent text-dark text-sm rounded-md focus:ring-accent focus:border-accent block w-full p-2.5"
+                        className="shadow-xs bg-light border border-accent text-dark text-sm rounded-md focus:ring-accent focus:border-accent block w-full lg:p-2.5 p-1.5"
                     >
                         <option value="ATTENDEE">Attendee</option>
                         <option value="VIP">VIP</option>
@@ -122,7 +141,7 @@ const EventRegistrationForm = ({ eventId }: { eventId: string }) => {
                         <option value="VOLUNTEER">Voliunteer</option>
                         <option value="ORGANIZER">Organizer</option>
                     </select>
-                    <p className="mt-2 text-xs font-medium text-red-700">
+                    <p className="lg:mt-2 text-xs font-medium text-red-700">
                         <span className="mr-1">
                             {errors.registrationType && "Error!"}
                         </span>
@@ -163,7 +182,7 @@ const EventRegistrationForm = ({ eventId }: { eventId: string }) => {
 
                 <button
                     type="submit"
-                    className="mt-8 text-light bg-accent hover:opacity-90 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    className="lg:mt-8 w-full text-light bg-accent hover:opacity-90 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm px-5 py-2.5 text-center"
                     disabled={isLoading}
                 >
                     {isLoading ? "Loading..." : " REGISTER"}
