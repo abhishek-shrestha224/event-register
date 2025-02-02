@@ -6,6 +6,7 @@ import { registerToEvent } from "@/utils/actions";
 import Error from "./Error";
 import { redirect } from "next/navigation";
 import { TfiClose } from "react-icons/tfi";
+import { openPdfInNewTab } from "@/utils/client";
 
 type Inputs = {
     registrationType: string;
@@ -93,7 +94,7 @@ const EventRegistrationForm = ({ eventId }: { eventId: string }) => {
             setIsLoading(false);
         }
         if (data) {
-            redirect(`/me/${data}`);
+            redirect("/me");
         }
     };
 
