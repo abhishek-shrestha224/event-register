@@ -1,0 +1,100 @@
+<html>
+    <head>
+        <title>Event Badge</title>
+        <style>
+            @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+            body {
+                box-sizing: border-box;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0;
+                padding: 0;
+            }
+            div,
+            span {
+                font-family: "Montserrat", serif;
+                background-color: #e6f4f1;
+                color: #112825;
+            }
+            .badge {
+                background-color: #e6f4f1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 350px;
+                height: 500px;
+                background: white;
+                border-radius: 8px;
+                border-width: 2px;
+                border-color: #112825;
+                padding: 20px 12px;
+            }
+            .event-header {
+                width: 100%;
+                text-align: left;
+            }
+            .event-name {
+                font-size: 32px;
+                font-weight: bold;
+            }
+            .event-info {
+                display: flex;
+                justify-content: space-between;
+                font-style: italic;
+                font-size: 14px;
+                margin: 12px 0px;
+            }
+            .image-wrapper {
+                width: 100%;
+
+                aspect-ratio: 1;
+            }
+            .profile-img {
+                width: 250px;
+                height: 275px;
+                object-fit: cover;
+                border-radius: 8px;
+            }
+            .name-wrapper {
+                width: 100%;
+                display: flex;
+                gap: 7px;
+                flex-direction: column;
+            }
+            .name {
+                text-align: left;
+                width: 100%;
+                font-size: 42px;
+                font-weight: bold;
+                margin-top: 10px;
+            }
+            .role,
+            .email {
+                font-size: 20px;
+                color: gray;
+                margin-top: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="badge">
+            <div class="event-header">
+                <div class="event-name">Event Name</div>
+                <div class="event-info">
+                    <span>Event Venue</span>
+                    <span>Event Date</span>
+                </div>
+            </div>
+            <div class="img-wrapper">
+                <img class="profile-img" src="abc.jpg" alt="Profile Image" />
+            </div>
+
+            <div class="name-wrapper">
+                <div class="name">Event Name</div>
+                <div class="role">Event Venue</div>
+                <div class="email">Event Date</div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,54 @@
+server:
+  port: ${PORT:8080}
+spring:
+  application:
+    name: event-register
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_SECRET}
+    driver-class-name: org.postgresql.Driver
+  mail:
+    host: smtp.gmail.com
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_SECRET}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database: postgresql
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format-sql: true
+    open-in-view: false
+
+
+
+upload:
+  directory: src/main/resources/uploads
+  allowed-extensions:
+    - jpg
+    - jpeg
+    - png
+  max-file-size: 2097152  # 2MB in bytes
+
+
+
+
+logging:
+  level:
+    org:
+      springframework:
+        security: INFO
+    world:
+      hello:
+        event_register: DEBUG
+

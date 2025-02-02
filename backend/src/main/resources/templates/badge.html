@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Event Badge</title>
+</head>
+<body style="box-sizing: border-box; display: flex; align-items: center; justify-content: center; margin: 0; padding: 0;">
+<div style="background-color: #e6f4f1; display: flex; flex-direction: column; align-items: center; width: 350px; height: 500px; border-radius: 8px; border-width: 2px; border-color: #112825; padding: 20px 12px;">
+    <div style="width: 100%; text-align: left;">
+        <div style="font-size: 32px; font-weight: bold; background-color: #e6f4f1; color: #112825;" th:text="${eventName}">Event Name</div>
+        <div style="font-style: italic; font-size: 14px; background-color: #e6f4f1; color: #112825;" th:text="${eventVenue}">Event Venue</div>
+        <div style="font-style: italic; font-size: 14px; background-color: #e6f4f1; color: #112825;" th:text="${eventDate}">Event Date</div>
+    </div>
+    <div style="width: 100%; aspect-ratio: 1;">
+        <img style="width: 250px; height: 275px; object-fit: cover; border-radius: 8px;" th:src="@{${imageUrl}}" alt="Profile Image" />
+    </div>
+    <div style="width: 100%; display: flex; gap: 7px; flex-direction: column;">
+        <div style="text-align: left; width: 100%; font-size: 42px; font-weight: bold; margin-top: 10px; background-color: #e6f4f1; color: #112825;" th:text="${userFullName}">User Full Name</div>
+        <div style="font-size: 20px; color: gray; margin-top: 5px; background-color: #e6f4f1;" th:text="${badgeType}">Badge Type</div>
+        <span style="font-size: 20px; color: gray; margin-top: 5px; background-color: #e6f4f1;" th:text="${userEmail}">User Email</span>
+    </div>
+</div>
+</body>
+</html>
