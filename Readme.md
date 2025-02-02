@@ -63,10 +63,10 @@ Ensure you have the following installed:
     ```
     ```sh
     pnpm i
-    npm run dev
+    pnpm run dev
     ```
     The frontend will start on `http://localhost:3000`
 
 ## API Documentation
 
--   The API endpoints are defined in the controllers (`src/main/java/world/hello/event_register/controller`)
+-   The API endpoints are defined in the controllers (`/backend/src/main/java/world/hello/event_register/controller`)

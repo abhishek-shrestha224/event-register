@@ -47,15 +47,15 @@ const SignUpForm = () => {
     };
 
     return (
-        <div className="lg:w-1/3 center-content flex-col gap-4 px-4 py-8">
-            <h3 className="lg:text-3xl font-bold">Sign Up Form</h3>
+        <div className="lg:w-1/3 w-full center-content flex-col gap-4 log:px-4 py-8">
+            <h3 className="lg:text-3xl text-2xl font-bold">Sign Up Form</h3>
 
             <form
-                className="w-[90%] mx-auto center-content flex-col"
+                className="lg:w-[90%] w-full mx-auto center-content flex-col"
                 onSubmit={handleSubmit(processForm)}
             >
-                <div className="mb-2  w-full flex justify-between ">
-                    <div className="w-[48%]">
+                <div className="mb-2 w-full lg:flex justify-between ">
+                    <div className="lg:w-[48%] w-full">
                         <label
                             htmlFor="firstName"
                             className="block mb-2 text-sm font-medium text-dark"
@@ -77,7 +77,7 @@ const SignUpForm = () => {
                         </p>
                     </div>
 
-                    <div className="w-[48%]">
+                    <div className="lg:w-[48%]">
                         <label
                             htmlFor="lastName"
                             className="block mb-2 text-sm font-medium text-dark"
@@ -120,7 +120,7 @@ const SignUpForm = () => {
                         {errors.email?.message}
                     </p>
                 </div>
-                <div className="mb-2  w-full">
+                <div className="mb-2 w-full">
                     <label
                         htmlFor="phoneNumber"
                         className="block mb-2 text-sm font-medium text-dark"
@@ -144,10 +144,10 @@ const SignUpForm = () => {
 
                 <button
                     type="submit"
-                    className="text-light bg-accent hover:opacity-90 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    className="w-full font-semibold text-light bg-accent hover:opacity-90 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                     disabled={isLoading}
                 >
-                    {isLoading ? "Loading..." : "Submit"}
+                    {isLoading ? "Loading..." : "SUBMIT"}
                 </button>
             </form>
 

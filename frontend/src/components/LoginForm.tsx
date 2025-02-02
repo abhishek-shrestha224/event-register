@@ -50,10 +50,10 @@ const LoginForm = () => {
     };
 
     return (
-        <div className="lg:w-1/3 center-content flex-col gap-4 px-4 py-8">
+        <div className="lg:w-1/3 w-full center-content flex-col gap-4 lg:px-4 py-8">
             <h5 className="font-bold lg:text-3xl">Enter you Email to login</h5>
             <form
-                className="w-[90%] mx-auto center-content gap-4"
+                className="lg:w-[90%] mx-auto w-full center-content lg:gap-4 gap-1"
                 onSubmit={handleSubmit(processForm)}
             >
                 <div className="w-full">
@@ -80,10 +80,10 @@ const LoginForm = () => {
 
                 <button
                     type="submit"
-                    className="text-light bg-accent hover:opacity-90 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 w-28 h-10 text-center"
+                    className="text-light bg-accent font-semibold hover:opacity-90 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm p-2.5 w-28 h-10 text-center"
                     disabled={isLoading}
                 >
-                    {isLoading ? "Loading..." : "Submit"}
+                    {isLoading ? "Loading..." : "SUBMIT"}
                 </button>
             </form>
         </div>
