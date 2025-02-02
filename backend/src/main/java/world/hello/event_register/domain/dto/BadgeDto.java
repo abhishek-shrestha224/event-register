@@ -14,12 +14,8 @@ import java.util.UUID;
 @Builder
 public class BadgeDto {
     private UUID id;
-
     private EventDto event;
-
     private String userEmail;
-
     private String photoPath;
-
     private RegistrationType registrationType;
 }

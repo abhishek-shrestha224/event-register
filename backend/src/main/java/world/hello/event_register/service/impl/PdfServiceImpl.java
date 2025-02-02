@@ -24,51 +24,40 @@ import java.util.Map;
 public class PdfServiceImpl implements PdfService {
     private final TemplateEngine templateEngine;
     private final ResourceConfig resourceConfig;
-
     public PdfServiceImpl(final TemplateEngine templateEngine, final ResourceConfig resourceConfig) {
         this.templateEngine = templateEngine;
         this.resourceConfig = resourceConfig;
     }
-
-
 //     Generates a PDF document from Thymeleaf template and provided variables.
 //     The generated PDF is returned as a byte array, to be used in the response.
-
     @Override
     public byte[] generatePdf(Map<String, Object> variables, String imageFileName) {
         try {
             log.info("Starting PDF generation...");
             log.info(variables.toString());
-
             // Generate a unique filename based on current timestamp
             String timestamp = String.valueOf(System.currentTimeMillis());
             String fileName = timestamp + ".pdf";
             log.info("Generated file name: {}", fileName);
-
             // Resolve the paths for image and PDF
             Path imagePath = resourceConfig.getDirectory().resolve(imageFileName);
             log.info("Image file path resolved: {}", imagePath);
-
             // Ensure the image exists
             if (!Files.exists(imagePath)) {
                 log.error("Image file does not exist: {}", imagePath);
                 throw new NotFoundException("Image file not found.");
             }
             log.info("Image file found: {}", imagePath);
-
             // Add image URL to Thymeleaf variables
             variables.put("imageUrl", imagePath.toUri().toString());
             log.info("Added image URL to variables: {}", imagePath.toUri());
-
             // Prepare the Thymeleaf context
             Context ctx = new Context();
             ctx.setVariables(variables);
             log.info("Variables passed to Thymeleaf context: {}", variables);
-
             // Process the Thymeleaf template
             String processedHtml = templateEngine.process("badge", ctx);
             log.info("HTML processed for PDF generation.");
-
             // Initialize PDF renderer
             try (ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream()) {
                 ITextRenderer renderer = new ITextRenderer();
@@ -77,11 +66,9 @@ public class PdfServiceImpl implements PdfService {
                 renderer.createPDF(pdfOutputStream, false);
                 renderer.finishPDF();
                 log.info("PDF successfully created.");
-
                 // Return the generated PDF as a byte array
                 return pdfOutputStream.toByteArray();
             }
-
         } catch (FileNotFoundException ex) {
             log.error("File not found: {}", ex.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Directory or file not found.");

@@ -8,26 +8,27 @@ import org.springframework.transaction.TransactionSystemException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import world.hello.event_register.domain.dto.BadgeDto;
+import world.hello.event_register.domain.dto.UserDto;
 import world.hello.event_register.domain.entity.BadgeEntity;
 import world.hello.event_register.domain.enums.RegistrationType;
 import world.hello.event_register.exception.GenericException;
 import world.hello.event_register.exception.InvalidFileException;
 import world.hello.event_register.exception.NotFoundException;
 import world.hello.event_register.repository.BadgeRepository;
-import world.hello.event_register.service.BadgeService;
-import world.hello.event_register.service.EventService;
-import world.hello.event_register.service.FileService;
-import world.hello.event_register.service.UserService;
+import world.hello.event_register.service.*;
 import world.hello.event_register.utils.mapper.BadgeMapper;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
 @Slf4j
 public class BadgeServiceImpl implements BadgeService {
+    private final PdfService pdfService;
     private final BadgeRepository badgeRepository;
     private final UserService userService;
     private final EventService eventService;
@@ -40,13 +41,15 @@ public class BadgeServiceImpl implements BadgeService {
             final BadgeMapper badgeMapper,
             final UserService userService,
             final EventService eventService,
-            final FileService fileService
+            final FileService fileService,
+            final PdfService pdfService
     ) {
         this.badgeRepository = badgeRepository;
         this.badgeMapper = badgeMapper;
         this.userService = userService;
         this.eventService = eventService;
         this.fileService = fileService;
+        this.pdfService = pdfService;
 
     }
 
@@ -142,4 +145,41 @@ public class BadgeServiceImpl implements BadgeService {
             throw new GenericException("Failed to fetch badge", ex);
         }
     }
+    @Override
+    public byte[] createBadgePdf(String userEmail, UUID badgeId) {
+        try {
+            log.info("Received request to create PDF for badge ID: {} and user email: {}", badgeId, userEmail);
+            // Fetch user details using the associated user email
+            final UserDto user = userService.getUserByEmail(userEmail);
+            if (user == null) {
+                log.warn("User not found for email: {}", userEmail);
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+            }
+            // Fetch the badge details using the badge ID
+            final BadgeDto badge = getBadgeByUserEmailAndId(userEmail, badgeId);
+            if (badge == null) {
+                log.warn("Badge not found for ID: {}", badgeId);
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Badge not found");
+            }
+            // Prepare badge data for PDF generation
+            final Map<String, Object> badgeData = new HashMap<>();
+            badgeData.put("eventName", badge.getEvent().getName());
+            badgeData.put("eventVenue", badge.getEvent().getVenue());
+            badgeData.put("eventDate", badge.getEvent().getEventDate());
+            badgeData.put("userFullName", user.getFirstName() + " " + user.getLastName());
+            badgeData.put("userEmail", user.getEmail());
+            badgeData.put("badgeType", badge.getRegistrationType());
+            // Generate the PDF for the badge
+            byte[] pdfBytes = pdfService.generatePdf(badgeData, badge.getPhotoPath());
+            log.info("PDF successfully generated for badge ID: {}", badgeId);
+            return pdfBytes;
+        } catch (ResponseStatusException ex) {
+            log.error(ex.getMessage(), badgeId, ex);
+            throw ex;
+        } catch (Exception ex) {
+            log.error("Error generating PDF for badge ID: {}", badgeId, ex);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error generating PDF");
+        }
+    }
+
 }
