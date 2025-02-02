@@ -8,7 +8,7 @@ const Navbar = () => {
     const pathname = usePathname();
     return (
         <header className="w-full h-16 center-content fixed z-10 bg-light shadow-md">
-            <nav className="lg:w-1/3 flex justify-between font-bold text-lg text-accent">
+            <nav className="lg:w-1/3 w-full flex justify-around font-bold lg:text-lg text-md text-accent">
                 <Link
                     className={`${
                         pathname.startsWith("/events") && "border-b-2"

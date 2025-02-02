@@ -7,7 +7,7 @@ export default async function Page() {
     return (
         <section className="pt-20 min-h-screen">
             <div className="lg:w-1/3 m-auto">
-                <h2 className="font-bold font-heading lg:text-7xl text-accent tracking-wide">
+                <h2 className="font-bold font-heading lg:text-7xl text-5xl text-accent tracking-wide">
                     Upcoming Events:
                 </h2>
 
@@ -21,20 +21,20 @@ export default async function Page() {
                 )}
 
                 {/* Events List */}
-                <div className="mt-4 flex flex-col gap-16">
+                <div className="mt-4 flex flex-col lg:gap-16 gap-8">
                     {data?.map((event) => (
                         <div
                             key={event.id}
-                            className="text-left px-4 py-8 font-bold lg:text-lg border border-slate-200 rounded-md shadow-xl"
+                            className="text-left text-sm lg:text-md lg:px-4 px-2 lg:py-8 py-6 font-bold lg:text-lg border border-slate-300 rounded-md shadow-sm lg:shadow-xl"
                         >
-                            <h5 className="font-semibold text-2xl mb-5">
+                            <h5 className="font-semibold text-xl lg:text-2xl lg:mb-5 mb-2">
                                 {event.name}
                             </h5>
-                            <div className="flex font-medium mb-3">
+                            <div className="flex font-medium lg:mb-3 mb-1">
                                 <p className="font-medium w-36">Venue:</p>
                                 <p>{event.venue}</p>
                             </div>
-                            <div className="flex font-medium mb-5">
+                            <div className="flex font-medium lg:mb-5 mb-2">
                                 <p className="font-medium w-36">Event Date:</p>
                                 <p>{event.eventDate}</p>
                             </div>

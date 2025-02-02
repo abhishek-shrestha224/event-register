@@ -12,7 +12,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <div className="w-full bg-light text-dark">
+        <div className="w-full px-1 lg:px-0 bg-light text-dark">
             <Navbar />
             {children}
         </div>

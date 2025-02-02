@@ -144,7 +144,7 @@ const SignUpForm = () => {
 
                 <button
                     type="submit"
-                    className="w-full font-semibold text-light bg-accent hover:opacity-90 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    className="w-full font-semibold text-light bg-accent hover:opacity-90 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-5 py-2.5 text-center"
                     disabled={isLoading}
                 >
                     {isLoading ? "Loading..." : "SUBMIT"}
