@@ -25,7 +25,7 @@ export default async function Page() {
                     {data?.map((event) => (
                         <div
                             key={event.id}
-                            className="text-left text-sm lg:text-md lg:px-4 px-2 lg:py-8 py-6 font-bold lg:text-lg border border-slate-300 rounded-md shadow-sm lg:shadow-xl"
+                            className="text-left text-sm lg:text-md lg:px-4 px-2 lg:py-8 py-6 font-bold lg:text-lg border border-slate-300 lg:border-none rounded-md shadow-sm lg:shadow-xl"
                         >
                             <h5 className="font-semibold text-xl lg:text-2xl lg:mb-5 mb-2">
                                 {event.name}
