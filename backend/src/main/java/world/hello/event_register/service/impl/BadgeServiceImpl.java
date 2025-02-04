@@ -165,7 +165,7 @@ public class BadgeServiceImpl implements BadgeService {
             final Map<String, Object> badgeData = new HashMap<>();
             badgeData.put("eventName", badge.getEvent().getName());
             badgeData.put("eventVenue", badge.getEvent().getVenue());
-            badgeData.put("eventDate", badge.getEvent().getEventDate());
+            badgeData.put("eventDate", badge.getEvent().getEventDate().toString().replace("-","."));
             badgeData.put("userFullName", user.getFirstName() + " " + user.getLastName());
             badgeData.put("userEmail", user.getEmail());
             badgeData.put("badgeType", badge.getRegistrationType());
