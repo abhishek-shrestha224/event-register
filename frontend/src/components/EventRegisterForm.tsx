@@ -3,10 +3,8 @@
 import React, { useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { registerToEvent } from "@/utils/actions";
-import Error from "./Error";
 import { redirect } from "next/navigation";
 import { TfiClose } from "react-icons/tfi";
-import { openPdfInNewTab } from "@/utils/client";
 
 type Inputs = {
     registrationType: string;
