@@ -1,3 +1,0 @@
-databaseChangeLog:
-  -include:
-    file: /changelog/0001-initial-schema.yml
