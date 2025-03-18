@@ -1,6 +1,5 @@
 package world.hello.event_register.domain.entity;
 
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,37 +18,35 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 public class UserEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Type(type="pg-uuid")
-    @Column(unique = true, nullable = false, updatable = false, name = "user_id")
-    private UUID id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Type(type = "pg-uuid")
+  @Column(unique = true, nullable = false, updatable = false, name = "user_id")
+  private UUID id;
 
-    @Column(nullable = false)
-    private String firstName;
+  @Column(nullable = false)
+  private String firstName;
 
-    @Column(nullable = false)
-    private String lastName;
+  @Column(nullable = false)
+  private String lastName;
 
-    @Column(nullable = false, updatable = false, unique = true)
-    private String email;
+  @Column(nullable = false, updatable = false, unique = true)
+  private String email;
 
-    @Column(nullable = false, length = 10, unique = true)
-    private String phoneNumber;
+  @Column(nullable = false, length = 10, unique = true)
+  private String phoneNumber;
 
-    @OneToMany(
-            fetch = FetchType.LAZY,
-            mappedBy = "user",
-            cascade = {CascadeType.REMOVE, CascadeType.PERSIST},
-            orphanRemoval = true)
-    @JsonManagedReference
-    private List<BadgeEntity> badges;
+  @OneToMany(
+      fetch = FetchType.LAZY,
+      mappedBy = "user",
+      cascade = {CascadeType.REMOVE, CascadeType.PERSIST},
+      orphanRemoval = true)
+  @JsonManagedReference
+  private List<BadgeEntity> badges;
 
+  @Column(updatable = false, nullable = false)
+  private LocalDateTime createdAt;
 
-    @Column(updatable = false, nullable = false)
-    private LocalDateTime createdAt;
-
-    @Column(nullable = false)
-    private LocalDateTime updatedAt;
+  @Column(nullable = false)
+  private LocalDateTime updatedAt;
 }
-

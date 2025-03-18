@@ -10,10 +10,10 @@ import java.util.UUID;
 
 @Repository
 public interface UserRepository extends CrudRepository<UserEntity, UUID> {
-    @Query("SELECT u FROM users u LEFT JOIN FETCH u.badges WHERE u.email = :email")
-    Optional<UserEntity> findUserWithBadgesByEmail(String email);
+  @Query("SELECT u FROM users u LEFT JOIN FETCH u.badges WHERE u.email = :email")
+  Optional<UserEntity> findUserWithBadgesByEmail(String email);
 
-    // Query to fetch a UserEntity without its associated Badges
-    @Query("SELECT u FROM users u WHERE u.email = :email")
-    Optional<UserEntity> findUserWithoutBadgesByEmail(String email);
+  // Query to fetch a UserEntity without its associated Badges
+  @Query("SELECT u FROM users u WHERE u.email = :email")
+  Optional<UserEntity> findUserWithoutBadgesByEmail(String email);
 }

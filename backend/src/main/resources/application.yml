@@ -24,7 +24,7 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     database: postgresql
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     properties:
       hibernate:
         format-sql: true
@@ -40,9 +40,6 @@ upload:
     - png
   max-file-size: 2097152  # 2MB in bytes
 
-
-
-
 logging:
   level:
     org:
@@ -51,4 +48,3 @@ logging:
     world:
       hello:
         event_register: DEBUG
-

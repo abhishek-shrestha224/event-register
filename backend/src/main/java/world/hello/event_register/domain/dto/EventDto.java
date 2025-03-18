@@ -14,11 +14,11 @@ import java.util.UUID;
 @Builder
 public class EventDto {
 
-    private UUID id;
+  private UUID id;
 
-    private String name;
+  private String name;
 
-    private String venue;
+  private String venue;
 
-    private LocalDate eventDate;
+  private LocalDate eventDate;
 }

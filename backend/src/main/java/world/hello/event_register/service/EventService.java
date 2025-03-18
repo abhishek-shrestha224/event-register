@@ -8,13 +8,13 @@ import java.util.List;
 import java.util.UUID;
 
 public interface EventService {
-    EventDto createEvent(EventCreateDto createData);
+  EventDto createEvent(EventCreateDto createData);
 
-    List<EventDto> getAllEvents();
+  List<EventDto> getAllEvents();
 
-    EventDto getEventById(UUID id);
+  EventDto getEventById(UUID id);
 
-    boolean doesEventExist(UUID id);
+  boolean doesEventExist(UUID id);
 
-    EventEntity getEventEntityById(UUID id);
+  EventEntity getEventEntityById(UUID id);
 }

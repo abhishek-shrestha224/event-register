@@ -13,8 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 public class ResourceConfig {
-    private Path directory;
-    private List<String> allowedExtensions;
-    private long maxFileSize;
+  private Path directory;
+  private List<String> allowedExtensions;
+  private long maxFileSize;
 }
-

@@ -17,31 +17,30 @@ import javax.validation.Valid;
 @Slf4j
 public class UserController {
 
-    private final UserService userService;
+  private final UserService userService;
 
+  public UserController(final UserService userService) {
+    this.userService = userService;
+  }
 
-    public UserController(final UserService userService) {
-        this.userService = userService;
+  @PostMapping
+  public ResponseEntity<UserDto> register(@RequestBody @Valid UserCreateDto user) {
+    log.info("Received JSON: {}", user);
+    final UserDto created = userService.registerUser(user);
+    return ResponseEntity.status(HttpStatus.CREATED).body(created);
+  }
 
+  @GetMapping("/check")
+  public ResponseEntity<UserDto> getUser(
+      @RequestHeader(value = "X-User-Email") final String email) {
+    log.info("Received email: {}", email);
+    if (SlugValidation.emailValidationFails(email)) {
+      log.warn("Email validation failed");
+      throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Invalid email cookie");
     }
 
-    @PostMapping
-    public ResponseEntity<UserDto> register(@RequestBody @Valid UserCreateDto user) {
-        log.info("Received JSON: {}", user);
-        final UserDto created = userService.registerUser(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(created);
-    }
-
-    @GetMapping("/check")
-    public ResponseEntity<UserDto> getUser(@RequestHeader(value = "X-User-Email") final String email) {
-        log.info("Received email: {}", email);
-        if (SlugValidation.emailValidationFails(email)) {
-            log.warn("Email validation failed");
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Invalid email cookie");
-        }
-
-        final UserDto found = userService.getUserByEmail(email);
-        log.info("Found user: {}", found);
-        return ResponseEntity.status(HttpStatus.OK).body(found);
-    }
+    final UserDto found = userService.getUserByEmail(email);
+    log.info("Found user: {}", found);
+    return ResponseEntity.status(HttpStatus.OK).body(found);
+  }
 }

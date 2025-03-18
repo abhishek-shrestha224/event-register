@@ -14,41 +14,38 @@ import java.util.stream.Collectors;
 
 @Component
 public class UserMapperImpl implements UserMapper {
-    private final BadgeMapper badgeMapper;
+  private final BadgeMapper badgeMapper;
 
+  @Autowired
+  public UserMapperImpl(final BadgeMapper badgeMapper) {
+    this.badgeMapper = badgeMapper;
+  }
 
-    @Autowired
-    public UserMapperImpl(final BadgeMapper badgeMapper) {
-        this.badgeMapper = badgeMapper;
+  @Override
+  public UserEntity toEntity(UserCreateDto dto) {
+    return UserEntity.builder()
+        .id(null)
+        .firstName(dto.getFirstName())
+        .lastName(dto.getLastName())
+        .email(dto.getEmail())
+        .phoneNumber(dto.getPhoneNumber())
+        .badges(null)
+        .createdAt(LocalDateTime.now())
+        .updatedAt(LocalDateTime.now())
+        .build();
+  }
 
-    }
-
-    @Override
-    public UserEntity toEntity(UserCreateDto dto) {
-        return UserEntity.builder()
-                .id(null)
-                .firstName(dto.getFirstName())
-                .lastName(dto.getLastName())
-                .email(dto.getEmail())
-                .phoneNumber(dto.getPhoneNumber())
-                .badges(null)
-                .createdAt(LocalDateTime.now())
-                .updatedAt(LocalDateTime.now())
-                .build();
-    }
-
-    @Override
-    public UserDto toDto(UserEntity entity) {
-        return UserDto.builder()
-                .firstName(entity.getFirstName())
-                .lastName(entity.getLastName())
-                .email(entity.getEmail())
-                .phoneNumber(entity.getPhoneNumber())
-                .badges(Optional.ofNullable(entity.getBadges())
-                        .map(badges -> badges.stream()
-                                .map(badgeMapper::toDto)
-                                .collect(Collectors.toList()))
-                        .orElse(null))
-                .build();
-    }
+  @Override
+  public UserDto toDto(UserEntity entity) {
+    return UserDto.builder()
+        .firstName(entity.getFirstName())
+        .lastName(entity.getLastName())
+        .email(entity.getEmail())
+        .phoneNumber(entity.getPhoneNumber())
+        .badges(
+            Optional.ofNullable(entity.getBadges())
+                .map(badges -> badges.stream().map(badgeMapper::toDto).collect(Collectors.toList()))
+                .orElse(null))
+        .build();
+  }
 }

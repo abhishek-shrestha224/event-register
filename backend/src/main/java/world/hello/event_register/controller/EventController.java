@@ -27,71 +27,76 @@ import java.util.UUID;
 @RequestMapping("/events")
 @Slf4j
 public class EventController {
-    private final EventService eventService;
-    private final BadgeService badgeService;
-    private final MailService mailService;
+  private final EventService eventService;
+  private final BadgeService badgeService;
+  private final MailService mailService;
 
-    @Autowired
-    public EventController(
-            final EventService eventService,
-            final BadgeService badgeService,
-            final MailService mailService
-    ) {
-        this.eventService = eventService;
-        this.badgeService = badgeService;
-        this.mailService = mailService;
-    }
+  @Autowired
+  public EventController(
+      final EventService eventService,
+      final BadgeService badgeService,
+      final MailService mailService) {
+    this.eventService = eventService;
+    this.badgeService = badgeService;
+    this.mailService = mailService;
+  }
 
-    @PostMapping
-    public ResponseEntity<EventDto> createEvent(@RequestBody @Valid final EventCreateDto createData) {
-        log.info("Creating event {}", createData);
-        final EventDto eventDto = eventService.createEvent(createData);
-        log.info("Event created DTO: {}", eventDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(eventDto);
-    }
+  @PostMapping
+  public ResponseEntity<EventDto> createEvent(@RequestBody @Valid final EventCreateDto createData) {
+    log.info("Creating event {}", createData);
+    final EventDto eventDto = eventService.createEvent(createData);
+    log.info("Event created DTO: {}", eventDto);
+    return ResponseEntity.status(HttpStatus.CREATED).body(eventDto);
+  }
 
-    @GetMapping
-    public ResponseEntity<List<EventDto>> getAllEvents() {
-        log.info("Getting all events");
-        final List<EventDto> eventDtoList = eventService.getAllEvents();
-        log.info("Event list: {}", eventDtoList);
-        return ResponseEntity.status(HttpStatus.OK).body(eventDtoList);
-    }
+  @GetMapping
+  public ResponseEntity<List<EventDto>> getAllEvents() {
+    log.info("Getting all events");
+    final List<EventDto> eventDtoList = eventService.getAllEvents();
+    log.info("Event list: {}", eventDtoList);
+    return ResponseEntity.status(HttpStatus.OK).body(eventDtoList);
+  }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<EventDto> getEventById(@PathVariable("id") final UUID id) {
-        if (SlugValidation.uuidValidationFails(id)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid path parameter");
-        }
-        log.info("Getting event by id: {}", id);
-        final EventDto eventDto = eventService.getEventById(id);
-        log.info("Event found {}", eventDto);
-        return ResponseEntity.status(HttpStatus.OK).body(eventDto);
+  @GetMapping("/{id}")
+  public ResponseEntity<EventDto> getEventById(@PathVariable("id") final UUID id) {
+    if (SlugValidation.uuidValidationFails(id)) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid path parameter");
     }
+    log.info("Getting event by id: {}", id);
+    final EventDto eventDto = eventService.getEventById(id);
+    log.info("Event found {}", eventDto);
+    return ResponseEntity.status(HttpStatus.OK).body(eventDto);
+  }
 
-    @PostMapping(value = "/{id}/register", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Map<String, UUID>> registerUserToEvent(
-            @PathVariable("id") UUID eventId,
-            @RequestHeader(value = "X-User-Email") final String userEmail,
-            @ModelAttribute @Valid FormDataDto formData) {
-        if (SlugValidation.uuidValidationFails(eventId)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid path parameter");
-        }
-        log.info("Registering to Event of id: {}", eventId);
-        if (SlugValidation.emailValidationFails(userEmail)) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Invalid email cookie");
-        }
-        log.info("Registering the user of email: {}", userEmail);
-        if (SlugValidation.fileValidationFails(formData.getPhoto())) {
-            log.warn("No photo");
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "File not attached with request");
-        }
-        MultipartFile photo = formData.getPhoto();
-        final BadgeDto savedBadge = badgeService.createBadge(formData.getRegistrationType(), userEmail, eventId, photo);
-        final byte[] badgePdf = badgeService.createBadgePdf(userEmail, savedBadge.getId());
-        mailService.sendMailWithAttachment("abhishekshrestha416@gmail.com", "Event Badge Created", "The badge for the event is attached with this email.", badgePdf);
-        final Map<String, UUID> res = new HashMap<>();
-        res.put("id", savedBadge.getId());
-        return ResponseEntity.status(HttpStatus.CREATED).body(res);
+  @PostMapping(value = "/{id}/register", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+  public ResponseEntity<Map<String, UUID>> registerUserToEvent(
+      @PathVariable("id") UUID eventId,
+      @RequestHeader(value = "X-User-Email") final String userEmail,
+      @ModelAttribute @Valid FormDataDto formData) {
+    if (SlugValidation.uuidValidationFails(eventId)) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid path parameter");
     }
+    log.info("Registering to Event of id: {}", eventId);
+    if (SlugValidation.emailValidationFails(userEmail)) {
+      throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Invalid email cookie");
+    }
+    log.info("Registering the user of email: {}", userEmail);
+    if (SlugValidation.fileValidationFails(formData.getPhoto())) {
+      log.warn("No photo");
+      throw new ResponseStatusException(
+          HttpStatus.UNPROCESSABLE_ENTITY, "File not attached with request");
+    }
+    MultipartFile photo = formData.getPhoto();
+    final BadgeDto savedBadge =
+        badgeService.createBadge(formData.getRegistrationType(), userEmail, eventId, photo);
+    final byte[] badgePdf = badgeService.createBadgePdf(userEmail, savedBadge.getId());
+    mailService.sendMailWithAttachment(
+        "abhishekshrestha416@gmail.com",
+        "Event Badge Created",
+        "The badge for the event is attached with this email.",
+        badgePdf);
+    final Map<String, UUID> res = new HashMap<>();
+    res.put("id", savedBadge.getId());
+    return ResponseEntity.status(HttpStatus.CREATED).body(res);
+  }
 }

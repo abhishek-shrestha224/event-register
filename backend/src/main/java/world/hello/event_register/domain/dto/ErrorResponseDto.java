@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class ErrorResponseDto<T> {
-    private int statusCode;
+  private int statusCode;
 
-    private String message;
+  private String message;
 
-    private String origin;
+  private String origin;
 
-    T details;
+  T details;
 }

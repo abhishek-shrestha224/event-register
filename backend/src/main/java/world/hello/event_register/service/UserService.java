@@ -5,11 +5,11 @@ import world.hello.event_register.domain.dto.UserDto;
 import world.hello.event_register.domain.entity.UserEntity;
 
 public interface UserService {
-    UserDto registerUser(UserCreateDto userDto);
+  UserDto registerUser(UserCreateDto userDto);
 
-    boolean doesUserExist(String email);
+  boolean doesUserExist(String email);
 
-    UserDto getUserByEmail(String email);
+  UserDto getUserByEmail(String email);
 
-    UserEntity getUserEntityByEmail(String email);
+  UserEntity getUserEntityByEmail(String email);
 }

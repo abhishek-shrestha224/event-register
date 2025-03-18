@@ -12,8 +12,7 @@ import world.hello.event_register.domain.enums.RegistrationType;
 @NoArgsConstructor
 @Builder
 public class FormDataDto {
-    private RegistrationType registrationType;
+  private RegistrationType registrationType;
 
-    private MultipartFile photo;
+  private MultipartFile photo;
 }
-

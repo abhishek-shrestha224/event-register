@@ -5,6 +5,5 @@ import world.hello.event_register.domain.entity.BadgeEntity;
 
 public interface BadgeMapper {
 
-    BadgeDto toDto(BadgeEntity entity);
-
+  BadgeDto toDto(BadgeEntity entity);
 }

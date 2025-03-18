@@ -8,20 +8,20 @@ import world.hello.event_register.utils.mapper.EventMapper;
 
 @Component
 public class BadgeMapperImpl implements BadgeMapper {
-    private final EventMapper eventMapper;
+  private final EventMapper eventMapper;
 
-    public BadgeMapperImpl(final EventMapper eventMapper) {
-        this.eventMapper = eventMapper;
-    }
+  public BadgeMapperImpl(final EventMapper eventMapper) {
+    this.eventMapper = eventMapper;
+  }
 
-    @Override
-    public BadgeDto toDto(BadgeEntity entity) {
-        return BadgeDto.builder()
-                .id(entity.getId())
-                .event(eventMapper.toDto(entity.getEvent()))
-                .userEmail(entity.getUser().getEmail())
-                .photoPath(entity.getPhotoPath())
-                .registrationType(entity.getRegistrationType())
-                .build();
-    }
+  @Override
+  public BadgeDto toDto(BadgeEntity entity) {
+    return BadgeDto.builder()
+        .id(entity.getId())
+        .event(eventMapper.toDto(entity.getEvent()))
+        .userEmail(entity.getUser().getEmail())
+        .photoPath(entity.getPhotoPath())
+        .registrationType(entity.getRegistrationType())
+        .build();
+  }
 }

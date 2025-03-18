@@ -13,13 +13,13 @@ import java.util.List;
 @Builder
 public class UserDto {
 
-    private String firstName;
+  private String firstName;
 
-    private String lastName;
+  private String lastName;
 
-    private String email;
+  private String email;
 
-    private String phoneNumber;
+  private String phoneNumber;
 
-    private List<BadgeDto> badges;
+  private List<BadgeDto> badges;
 }

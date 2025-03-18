@@ -1,6 +1,5 @@
 package world.hello.event_register.domain.entity;
 
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,32 +19,32 @@ import java.util.UUID;
 @Builder
 @Table(name = "badges")
 public class BadgeEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false, updatable = false, unique = true, name = "badge_id")
-    @Type(type = "pg-uuid")
-    private UUID id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(nullable = false, updatable = false, unique = true, name = "badge_id")
+  @Type(type = "pg-uuid")
+  private UUID id;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, updatable = false)
-    private RegistrationType registrationType;
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false, updatable = false)
+  private RegistrationType registrationType;
 
-    @Column(nullable = false)
-    private String photoPath;
+  @Column(nullable = false)
+  private String photoPath;
 
-    @ManyToOne()
-    @JoinColumn(name = "user_id", nullable = false, updatable = false)
-    @JsonBackReference
-    private UserEntity user;
+  @ManyToOne()
+  @JoinColumn(name = "user_id", nullable = false, updatable = false)
+  @JsonBackReference
+  private UserEntity user;
 
-    @ManyToOne()
-    @JoinColumn(name = "event_id", nullable = false, updatable = false)
-    @JsonBackReference
-    private EventEntity event;
+  @ManyToOne()
+  @JoinColumn(name = "event_id", nullable = false, updatable = false)
+  @JsonBackReference
+  private EventEntity event;
 
-    @Column(updatable = false, nullable = false)
-    private LocalDateTime createdAt;
+  @Column(updatable = false, nullable = false)
+  private LocalDateTime createdAt;
 
-    @Column(nullable = false)
-    private LocalDateTime updatedAt;
+  @Column(nullable = false)
+  private LocalDateTime updatedAt;
 }

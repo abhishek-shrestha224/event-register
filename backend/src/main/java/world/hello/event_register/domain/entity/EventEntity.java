@@ -1,6 +1,5 @@
 package world.hello.event_register.domain.entity;
 
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +13,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-
 @Entity(name = "events")
 @Data
 @AllArgsConstructor
@@ -22,34 +20,32 @@ import java.util.UUID;
 @Builder
 public class EventEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false, updatable = false, unique = true, name = "event_id")
-    @Type(type = "pg-uuid")
-    private UUID id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(nullable = false, updatable = false, unique = true, name = "event_id")
+  @Type(type = "pg-uuid")
+  private UUID id;
 
-    @Column(nullable = false)
-    private String name;
+  @Column(nullable = false)
+  private String name;
 
-    @Column(nullable = false)
-    private String venue;
+  @Column(nullable = false)
+  private String venue;
 
-    @Column(nullable = false)
-    private LocalDate eventDate;
+  @Column(nullable = false)
+  private LocalDate eventDate;
 
-    @OneToMany(
-            fetch = FetchType.LAZY,
-            mappedBy = "event",
-            cascade = {CascadeType.REMOVE, CascadeType.PERSIST},
-            orphanRemoval = true)
-    @JsonManagedReference
-    private List<BadgeEntity> badges;
+  @OneToMany(
+      fetch = FetchType.LAZY,
+      mappedBy = "event",
+      cascade = {CascadeType.REMOVE, CascadeType.PERSIST},
+      orphanRemoval = true)
+  @JsonManagedReference
+  private List<BadgeEntity> badges;
 
-    @Column(updatable = false, nullable = false)
-    private LocalDateTime createdAt;
+  @Column(updatable = false, nullable = false)
+  private LocalDateTime createdAt;
 
-    @Column(nullable = false)
-    private LocalDateTime updatedAt;
-
-
+  @Column(nullable = false)
+  private LocalDateTime updatedAt;
 }

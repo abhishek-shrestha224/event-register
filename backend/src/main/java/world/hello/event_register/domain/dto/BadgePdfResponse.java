@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class BadgePdfResponse {
-    private BadgeResponseDto badge;
-    private byte[] pdf;
+  private BadgeResponseDto badge;
+  private byte[] pdf;
 }

@@ -6,22 +6,21 @@ import world.hello.event_register.service.MailService;
 
 @RestController
 public class EntryController {
-    private final MailService mailService;
-    public EntryController(final MailService mailService) {
-        this.mailService = mailService;
-    }
+  private final MailService mailService;
 
-    @GetMapping
-    public String hello() {
-        return "Hello World";
-    }
+  public EntryController(final MailService mailService) {
+    this.mailService = mailService;
+  }
 
-    @GetMapping("/mail")
-    public String mail() {
-        mailService.sendMail("abhishekshrestha416@gmail.com","Test Mail","Hello World");
+  @GetMapping
+  public String hello() {
+    return "Hello World";
+  }
 
-        return "Mail Sent";
+  @GetMapping("/mail")
+  public String mail() {
+    mailService.sendMail("abhishekshrestha416@gmail.com", "Test Mail", "Hello World");
 
-    }
+    return "Mail Sent";
+  }
 }
-

@@ -16,16 +16,13 @@ import java.time.LocalDate;
 @Builder
 public class EventCreateDto {
 
-    @NotBlank
-    @Size(max = 255)
-    private String name;
+  @NotBlank
+  @Size(max = 255)
+  private String name;
 
-    @NotBlank
-    @Size(max = 255)
-    private String venue;
+  @NotBlank
+  @Size(max = 255)
+  private String venue;
 
-    @ValidLocalDate
-    private LocalDate eventDate;
-
-
+  @ValidLocalDate private LocalDate eventDate;
 }

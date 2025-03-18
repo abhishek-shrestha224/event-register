@@ -6,7 +6,7 @@ import world.hello.event_register.domain.entity.UserEntity;
 
 public interface UserMapper {
 
-    UserDto toDto(UserEntity user);
+  UserDto toDto(UserEntity user);
 
-    UserEntity toEntity(UserCreateDto dto);
+  UserEntity toEntity(UserCreateDto dto);
 }

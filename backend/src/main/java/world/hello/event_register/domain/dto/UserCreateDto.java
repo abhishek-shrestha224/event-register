@@ -14,15 +14,11 @@ import javax.validation.constraints.NotBlank;
 @Builder
 public class UserCreateDto {
 
-    @NotBlank
-    private String firstName;
+  @NotBlank private String firstName;
 
-    @NotBlank
-    private String lastName;
+  @NotBlank private String lastName;
 
-    @Email
-    private String email;
+  @Email private String email;
 
-    @NotBlank
-    private String phoneNumber;
+  @NotBlank private String phoneNumber;
 }

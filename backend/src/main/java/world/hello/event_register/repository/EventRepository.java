@@ -12,14 +12,16 @@ import java.util.UUID;
 
 @Repository
 public interface EventRepository extends CrudRepository<EventEntity, UUID> {
-    @Query("SELECT new world.hello.event_register.domain.dto.EventDto(e.id, e.name, e.venue, e.eventDate) " +
-            "FROM events e WHERE e.id = :id")
-    Optional<EventDto> findEventDtoById(UUID id);
+  @Query(
+      "SELECT new world.hello.event_register.domain.dto.EventDto(e.id, e.name, e.venue, e.eventDate) "
+          + "FROM events e WHERE e.id = :id")
+  Optional<EventDto> findEventDtoById(UUID id);
 
-    @Query("SELECT new world.hello.event_register.domain.dto.EventDto(e.id, e.name, e.venue, e.eventDate) " +
-            "FROM events e")
-    List<EventDto> findAllEventDto();
+  @Query(
+      "SELECT new world.hello.event_register.domain.dto.EventDto(e.id, e.name, e.venue, e.eventDate) "
+          + "FROM events e")
+  List<EventDto> findAllEventDto();
 
-    @Query("SELECT e FROM events e LEFT JOIN FETCH e.badges WHERE e.id = :id")
-    Optional<EventEntity> findEventEntityById(UUID id);
+  @Query("SELECT e FROM events e LEFT JOIN FETCH e.badges WHERE e.id = :id")
+  Optional<EventEntity> findEventEntityById(UUID id);
 }

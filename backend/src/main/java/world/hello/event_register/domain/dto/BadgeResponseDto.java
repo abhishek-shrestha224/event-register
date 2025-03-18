@@ -14,13 +14,13 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 public class BadgeResponseDto {
-    private UUID id;
+  private UUID id;
 
-    private EventDto event;
+  private EventDto event;
 
-    private String fullName;
+  private String fullName;
 
-    private String email;
+  private String email;
 
-    private RegistrationType registrationType;
+  private RegistrationType registrationType;
 }
